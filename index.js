@@ -3,7 +3,7 @@ const defaultsShape = {
   extension: 'string',
   detailsURL: 'string',
   success: 'string',
-  failture: 'string'
+  failure: 'string'
 };
 
 function checkForDefaults(defaults) {
