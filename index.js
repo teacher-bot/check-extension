@@ -16,7 +16,7 @@ function checkForDefaults(defaults) {
  * @param {object} context - Context argument from a Robot .on() hook.
  * @returns {object}
  */
-const checkExtension = async (robot, context, config) => {
+const checkExtensions = async (robot, context, config) => {
   const {number, pull_request: pr} = context.payload;
   const {data: files} = await context.github.pullRequests.getFiles(context.repo({
     number
@@ -53,13 +53,13 @@ module.exports = (robot, defaults, configFilename = 'checkextension.yml') => {
   const runTests = async context => {
     let config;
     try {
-      const {extensionConfig} = await context.config(configFilename);
-      config = Object.assign({}, defaults, extensionConfig);
+      const {checkExtension} = await context.config(configFilename);
+      config = Object.assign({}, defaults, checkExtension);
       } catch (err) {
       config = defaults;
     }
 
-    const pinCheck = await checkExtension(robot, context, config);
+    const pinCheck = await checkExtensions(robot, context, config);
     return context.github.repos.createStatus(pinCheck);
   }
 
