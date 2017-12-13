@@ -53,8 +53,8 @@ module.exports = (robot, defaults, configFilename = 'checkextension.yml') => {
   const runTests = async context => {
     let config;
     try {
-      const {checkExtension} = await context.config(configFilename);
-      config = Object.assign({}, defaults, checkExtension);
+      const {extensionConfig} = await context.config(configFilename);
+      config = Object.assign({}, defaults, extensionConfig);
       } catch (err) {
       config = defaults;
     }
